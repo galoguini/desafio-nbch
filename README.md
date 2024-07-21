@@ -16,7 +16,7 @@ El repositorio ya incluye las salidas generadas:
 - `total_localidad.txt`
 
 
-Estas lineas ejecutan `Pan` y `Kitchen` via PowerShell, puede usar los siguientes comandos para probar el archivo `.kjb` y `.ktr` mediante CLI:
+Estas lineas ejecutan `Pan` y `Kitchen` via PowerShell, puede usar los siguientes comandos para probar el archivo `.kjb` y los `.ktr` mediante CLI:
 
 ```powershell
 & "Kitchen.bat" /file="C:/desafio-nbch/Exportar_Excel_a_DB.kjb"
