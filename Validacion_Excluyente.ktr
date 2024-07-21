@@ -10,13 +10,38 @@
     <directory>/</directory>
     <parameters>
       <parameter>
+        <name>db_host</name>
+        <default_value>localhost</default_value>
+        <description/>
+      </parameter>
+      <parameter>
+        <name>db_name</name>
+        <default_value>feriados_postgres</default_value>
+        <description/>
+      </parameter>
+      <parameter>
+        <name>db_password</name>
+        <default_value>qwerty1234</default_value>
+        <description/>
+      </parameter>
+      <parameter>
+        <name>db_port</name>
+        <default_value>5432</default_value>
+        <description/>
+      </parameter>
+      <parameter>
+        <name>db_user</name>
+        <default_value>postgres</default_value>
+        <description/>
+      </parameter>
+      <parameter>
         <name>input_file_path</name>
-        <default_value>C:/Users/thesp/Documents/GitHub/desafio-nbch/Feriados.xls</default_value>
+        <default_value>C:/desafio-nbch/Feriados.xls</default_value>
         <description/>
       </parameter>
       <parameter>
         <name>output_file_path</name>
-        <default_value>C:/Users/thesp/Documents/GitHub/desafio-nbch/salidas</default_value>
+        <default_value>C:/desafio-nbch/salidas</default_value>
         <description/>
       </parameter>
     </parameters>
@@ -445,10 +470,82 @@
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
+    <notepad>
+      <note>salidas ---></note>
+      <xloc>4816</xloc>
+      <yloc>688</yloc>
+      <width>88</width>
+      <heigth>30</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>9</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>205</backgroundcolorgreen>
+      <backgroundcolorblue>112</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
+  <connection>
+    <name>postgres-db</name>
+    <server>${db_host}</server>
+    <type>POSTGRESQL</type>
+    <access>Native</access>
+    <database>${db_name}</database>
+    <port>${db_port}</port>
+    <username>${db_user}</username>
+    <password>${db_password}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>${db_port}</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
+    </attributes>
+  </connection>
   <order>
     <hop>
-      <from>obtengo el excel [INICIO]</from>
+      <from>obtengo el excel</from>
       <to>quito las primeras filas del flujo</to>
       <enabled>Y</enabled>
     </hop>
@@ -593,16 +690,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>junto los flujos (provincia)</from>
-      <to>chequeo feriados repetidos</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>chequeo feriados repetidos</from>
-      <to>feriado repetido</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>feriado repetido</from>
       <to>junto los flujos (feriados repetidos)</to>
       <enabled>Y</enabled>
@@ -737,6 +824,51 @@
       <to>reporte.xls</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>chequeo feriados repetidos</from>
+      <to>feriado repetido</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>junto los flujos (provincia)</from>
+      <to>ordeno por fecha y cod. postal</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>ordeno por fecha y cod. postal</from>
+      <to>chequeo feriados repetidos</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>datos correctos</from>
+      <to>transformo al tipo de dato correcto</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>transformo al tipo de dato correcto</from>
+      <to>cargo los datos en la base de datos [FIN]</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>obtengo las variables [INICIO]</from>
+      <to>existen?</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>existen?</from>
+      <to>variables no configuradas</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>existen?</from>
+      <to>borro los campos</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>borro los campos</from>
+      <to>obtengo el excel</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <step>
     <name>acomodo de mayor a menor</name>
@@ -775,7 +907,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>5280</xloc>
+      <xloc>5104</xloc>
       <yloc>544</yloc>
       <draw>Y</draw>
     </GUI>
@@ -825,7 +957,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>5280</xloc>
+      <xloc>5104</xloc>
       <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
@@ -860,6 +992,70 @@
     </remotesteps>
     <GUI>
       <xloc>496</xloc>
+      <yloc>176</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>cargo los datos en la base de datos [FIN]</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>postgres-db</connection>
+    <schema>public</schema>
+    <table>feriados</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>fecha</column_name>
+        <stream_name>Fecha</stream_name>
+      </field>
+      <field>
+        <column_name>codigo_postal</column_name>
+        <stream_name>Cód. Postal</stream_name>
+      </field>
+      <field>
+        <column_name>p_i</column_name>
+        <stream_name>P. I.</stream_name>
+      </field>
+      <field>
+        <column_name>localidad</column_name>
+        <stream_name>Localidad</stream_name>
+      </field>
+      <field>
+        <column_name>provincia</column_name>
+        <stream_name>Provincia</stream_name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>5760</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
@@ -951,7 +1147,7 @@ Resultado = Resultado;
       </output>
     </remotesteps>
     <GUI>
-      <xloc>4688</xloc>
+      <xloc>4736</xloc>
       <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
@@ -990,8 +1186,8 @@ Resultado = Resultado;
       </output>
     </remotesteps>
     <GUI>
-      <xloc>2832</xloc>
-      <yloc>320</yloc>
+      <xloc>2848</xloc>
+      <yloc>512</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1064,7 +1260,7 @@ Resultado = Resultado;
       </output>
     </remotesteps>
     <GUI>
-      <xloc>5600</xloc>
+      <xloc>5424</xloc>
       <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1110,7 +1306,7 @@ Resultado = Resultado;
       </output>
     </remotesteps>
     <GUI>
-      <xloc>5280</xloc>
+      <xloc>5104</xloc>
       <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1135,7 +1331,7 @@ Resultado = Resultado;
       </output>
     </remotesteps>
     <GUI>
-      <xloc>5280</xloc>
+      <xloc>5104</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1160,7 +1356,7 @@ Resultado = Resultado;
       </output>
     </remotesteps>
     <GUI>
-      <xloc>5584</xloc>
+      <xloc>5424</xloc>
       <yloc>64</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1204,7 +1400,7 @@ Resultado = Resultado;
       </output>
     </remotesteps>
     <GUI>
-      <xloc>5280</xloc>
+      <xloc>5104</xloc>
       <yloc>64</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1270,7 +1466,7 @@ Resultado = Resultado;
       </output>
     </remotesteps>
     <GUI>
-      <xloc>5600</xloc>
+      <xloc>5424</xloc>
       <yloc>544</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1320,7 +1516,7 @@ Resultado = Resultado;
       </output>
     </remotesteps>
     <GUI>
-      <xloc>2832</xloc>
+      <xloc>3088</xloc>
       <yloc>512</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1417,7 +1613,7 @@ Resultado = Resultado;
       </output>
     </remotesteps>
     <GUI>
-      <xloc>4864</xloc>
+      <xloc>4816</xloc>
       <yloc>64</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1840,7 +2036,7 @@ Resultado = Resultado;
     </GUI>
   </step>
   <step>
-    <name>obtengo el excel [INICIO]</name>
+    <name>obtengo el excel</name>
     <type>ExcelInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1981,8 +2177,58 @@ Resultado = Resultado;
       </output>
     </remotesteps>
     <GUI>
-      <xloc>80</xloc>
-      <yloc>176</yloc>
+      <xloc>224</xloc>
+      <yloc>432</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>ordeno por fecha y cod. postal</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>Fecha</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>Cód. Postal</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>2848</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2230,7 +2476,7 @@ Resultado = Resultado;
       </output>
     </remotesteps>
     <GUI>
-      <xloc>4688</xloc>
+      <xloc>4736</xloc>
       <yloc>208</yloc>
       <draw>Y</draw>
     </GUI>
@@ -2287,7 +2533,7 @@ Resultado = Resultado;
     <fields>
       <field>
         <name>Fecha</name>
-        <type>String</type>
+        <type>Date</type>
         <format/>
         <title>Fecha</title>
         <titleStyleCell/>
@@ -2367,8 +2613,8 @@ Resultado = Resultado;
       </output>
     </remotesteps>
     <GUI>
-      <xloc>4896</xloc>
-      <yloc>496</yloc>
+      <xloc>4976</xloc>
+      <yloc>688</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2495,8 +2741,8 @@ Resultado = Resultado;
       </output>
     </remotesteps>
     <GUI>
-      <xloc>5600</xloc>
-      <yloc>656</yloc>
+      <xloc>5248</xloc>
+      <yloc>688</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2576,8 +2822,87 @@ Resultado = Resultado;
       </output>
     </remotesteps>
     <GUI>
-      <xloc>5280</xloc>
-      <yloc>656</yloc>
+      <xloc>5104</xloc>
+      <yloc>688</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>transformo al tipo de dato correcto</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>Fecha</name>
+        <rename>Fecha</rename>
+        <type>Date</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>dd/MM/yyyy</conversion_mask>
+        <date_format_lenient>true</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>Cód. Postal</name>
+        <rename>Cód. Postal</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>#</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>P. I.</name>
+        <rename>P. I.</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>#</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>5424</xloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2621,7 +2946,7 @@ Resultado = Resultado;
       </output>
     </remotesteps>
     <GUI>
-      <xloc>5600</xloc>
+      <xloc>5424</xloc>
       <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
@@ -3033,6 +3358,277 @@ Provincia = Provincia;
     <GUI>
       <xloc>3760</xloc>
       <yloc>320</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>obtengo las variables [INICIO]</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>archivo</name>
+        <variable>${input_file_path}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>salida</name>
+        <variable>${output_file_path}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>host</name>
+        <variable>${db_host}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>port</name>
+        <variable>${db_port}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>nombre</name>
+        <variable>${db_name}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>contraseña</name>
+        <variable>${db_password}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>user</name>
+        <variable>${db_user}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>128</xloc>
+      <yloc>672</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>existen?</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to>borro los campos</send_true_to>
+    <send_false_to>variables no configuradas</send_false_to>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <conditions>
+          <condition>
+            <negated>N</negated>
+            <leftvalue>archivo</leftvalue>
+            <function>IS NOT NULL</function>
+            <rightvalue/>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <leftvalue>salida</leftvalue>
+            <function>IS NOT NULL</function>
+            <rightvalue/>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <leftvalue>host</leftvalue>
+            <function>IS NOT NULL</function>
+            <rightvalue/>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <leftvalue>port</leftvalue>
+            <function>IS NOT NULL</function>
+            <rightvalue/>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <leftvalue>nombre</leftvalue>
+            <function>IS NOT NULL</function>
+            <rightvalue/>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <leftvalue>contraseña</leftvalue>
+            <function>IS NOT NULL</function>
+            <rightvalue/>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <leftvalue>user</leftvalue>
+            <function>IS NOT NULL</function>
+            <rightvalue/>
+          </condition>
+        </conditions>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>304</xloc>
+      <yloc>672</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>variables no configuradas</name>
+    <type>Abort</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <row_threshold>0</row_threshold>
+    <message>no se encuentran las variables</message>
+    <always_log_rows>Y</always_log_rows>
+    <abort_option>ABORT_WITH_ERROR</abort_option>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>480</xloc>
+      <yloc>672</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>borro los campos</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <select_unspecified>N</select_unspecified>
+      <remove>
+        <name>archivo</name>
+      </remove>
+      <remove>
+        <name>salida</name>
+      </remove>
+      <remove>
+        <name>host</name>
+      </remove>
+      <remove>
+        <name>port</name>
+      </remove>
+      <remove>
+        <name>nombre</name>
+      </remove>
+      <remove>
+        <name>contraseña</name>
+      </remove>
+      <remove>
+        <name>user</name>
+      </remove>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>224</xloc>
+      <yloc>544</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

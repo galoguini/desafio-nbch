@@ -11,7 +11,7 @@
     <parameters>
       <parameter>
         <name>input_file_path</name>
-        <default_value>C:/Users/thesp/Documents/GitHub/desafio-nbch/Feriados.xls</default_value>
+        <default_value>C:/desafio-nbch/Feriados.xls</default_value>
         <description/>
       </parameter>
     </parameters>
@@ -463,7 +463,7 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>obtengo el excel [INICIO]</from>
+      <from>obtengo el excel</from>
       <to>cuento todas las filas</to>
       <enabled>Y</enabled>
     </hop>
@@ -507,6 +507,26 @@
       <to>descarto las otras filas</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>existe la variable?</from>
+      <to>Variable no configurada</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>existe la variable?</from>
+      <to>quito el campo de validacion</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>quito el campo de validacion</from>
+      <to>obtengo el excel</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>obtengo la variable [INICIO]</from>
+      <to>existe la variable?</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <step>
     <name>Encabezado invalido</name>
@@ -532,8 +552,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>864</xloc>
-      <yloc>48</yloc>
+      <xloc>1152</xloc>
+      <yloc>64</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -561,8 +581,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>336</xloc>
-      <yloc>48</yloc>
+      <xloc>624</xloc>
+      <yloc>64</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -605,8 +625,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>864</xloc>
-      <yloc>176</yloc>
+      <xloc>1152</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -640,8 +660,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>336</xloc>
-      <yloc>176</yloc>
+      <xloc>624</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -762,8 +782,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>864</xloc>
-      <yloc>288</yloc>
+      <xloc>1152</xloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -805,8 +825,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>336</xloc>
-      <yloc>320</yloc>
+      <xloc>624</xloc>
+      <yloc>336</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -848,8 +868,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>272</xloc>
-      <yloc>432</yloc>
+      <xloc>560</xloc>
+      <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -873,8 +893,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>560</xloc>
-      <yloc>48</yloc>
+      <xloc>848</xloc>
+      <yloc>64</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -898,8 +918,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1072</xloc>
-      <yloc>432</yloc>
+      <xloc>1360</xloc>
+      <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -933,13 +953,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>656</xloc>
-      <yloc>432</yloc>
+      <xloc>944</xloc>
+      <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>obtengo el excel [INICIO]</name>
+    <name>obtengo el excel</name>
     <type>ExcelInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1063,8 +1083,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>80</xloc>
-      <yloc>432</yloc>
+      <xloc>336</xloc>
+      <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1107,8 +1127,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>864</xloc>
-      <yloc>432</yloc>
+      <xloc>1152</xloc>
+      <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1151,8 +1171,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>448</xloc>
-      <yloc>432</yloc>
+      <xloc>736</xloc>
+      <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1176,8 +1196,142 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1312</xloc>
-      <yloc>432</yloc>
+      <xloc>1600</xloc>
+      <yloc>448</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Variable no configurada</name>
+    <type>Abort</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <row_threshold>0</row_threshold>
+    <message>no existe la variable</message>
+    <always_log_rows>Y</always_log_rows>
+    <abort_option>ABORT_WITH_ERROR</abort_option>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>336</xloc>
+      <yloc>64</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>existe la variable?</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to>quito el campo de validacion</send_true_to>
+    <send_false_to>Variable no configurada</send_false_to>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>existe?</leftvalue>
+        <function>IS NOT NULL</function>
+        <rightvalue/>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>336</xloc>
+      <yloc>192</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>quito el campo de validacion</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <select_unspecified>N</select_unspecified>
+      <remove>
+        <name>existe?</name>
+      </remove>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>336</xloc>
+      <yloc>336</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>obtengo la variable [INICIO]</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>existe?</name>
+        <variable>${input_file_path}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>112</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

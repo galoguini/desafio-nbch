@@ -12,13 +12,38 @@
   <modified_date>2024/07/17 01:50:40.806</modified_date>
   <parameters>
     <parameter>
+      <name>db_host</name>
+      <default_value>localhost</default_value>
+      <description/>
+    </parameter>
+    <parameter>
+      <name>db_name</name>
+      <default_value>feriados_postgres</default_value>
+      <description/>
+    </parameter>
+    <parameter>
+      <name>db_password</name>
+      <default_value>qwerty1234</default_value>
+      <description/>
+    </parameter>
+    <parameter>
+      <name>db_port</name>
+      <default_value>5432</default_value>
+      <description/>
+    </parameter>
+    <parameter>
+      <name>db_user</name>
+      <default_value>postgres</default_value>
+      <description/>
+    </parameter>
+    <parameter>
       <name>input_file_path</name>
-      <default_value>C:/Users/thesp/Documents/GitHub/desafio-nbch/Feriados.xls</default_value>
+      <default_value>C:/desafio-nbch/Feriados.xls</default_value>
       <description/>
     </parameter>
     <parameter>
       <name>output_file_path</name>
-      <default_value>C:/Users/thesp/Documents/GitHub/desafio-nbch/salidas</default_value>
+      <default_value>C:/desafio-nbch/salidas</default_value>
       <description/>
     </parameter>
   </parameters>
@@ -364,7 +389,7 @@
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>C:/Users/thesp/Documents/GitHub/desafio-nbch/Validacion_Cancelatoria.ktr</filename>
+      <filename>C:/desafio-nbch/Validacion_Cancelatoria.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -403,7 +428,7 @@
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>C:/Users/thesp/Documents/GitHub/desafio-nbch/Validacion_Excluyente.ktr</filename>
+      <filename>C:/desafio-nbch/Validacion_Excluyente.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -467,7 +492,7 @@
       <type>SET_VARIABLES</type>
       <attributes/>
       <replacevars>N</replacevars>
-      <filename>C:/Users/thesp/Documents/GitHub/desafio-nbch/config.properties</filename>
+      <filename>C:/desafio-nbch/config.properties</filename>
       <file_variable_type>JVM</file_variable_type>
       <fields>
       </fields>
