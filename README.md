@@ -1,7 +1,7 @@
 
 ## Desafío NBCH
 
-Para facilitar el uso del repositorio, se recomienda clonarlo en `C:/` para evitar la necesidad de modificar las rutas en el archivo `config.properties`.
+Para mayor comodidad, puede clonar el repositorio en `C:/` para evitar la necesidad de modificar las rutas en el archivo `config.properties`.
 
 
 Utilice **PostgreSQL** como motor de base de datos. El archivo `tabla_feriados.sql` incluye el DDL necesario para crear la tabla en la base de datos. Es necesario tener PostgresSQL instalado, con una base de datos local creada (con los datos del `config.properties`).
